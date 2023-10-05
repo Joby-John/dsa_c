@@ -30,7 +30,7 @@ void get(struct myArray *marks)
     int ind;
     printf("Enter the index of which you want to acccess the element:- ");
     scanf("%d",&ind);
-    printf("%d",(marks->start_addr)[ind-1]);
+    printf("%d",(marks->start_addr)[ind]);
 }
 
 void display(struct myArray *marks)
@@ -43,6 +43,26 @@ void display(struct myArray *marks)
     printf("%d\n",marks->start_addr[i]);
 }
 
+int ind_insert(struct myArray* marks)//inserts at specified index
+{
+    int index;
+    if (marks->prim_usable_size >= marks->total_size)
+    {
+        return -1;
+    }
+    printf("\nAt which index do you want to insert:- ");
+    scanf("%d",&index);
+    for (int i = marks->prim_usable_size-1; i>=index; i-- )
+    {
+        marks->start_addr[i+1] = marks->start_addr[i];
+
+    }
+     printf("Enter the term you want to insert :- ");
+     scanf("%d",&marks->start_addr[index]);
+     marks->prim_usable_size++;
+     return 0;
+}
+
 int main()
 {
     struct myArray marks;//creates a structure named marks
@@ -50,6 +70,9 @@ int main()
     add(&marks);//&- passes addr *- deferences addr(reads it)
     display(&marks);
     get(&marks);
+    ind_insert(&marks);
+    display(&marks);
+
 
 
 
