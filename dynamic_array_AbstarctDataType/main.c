@@ -5,20 +5,20 @@
 struct myArray
 {
     int total_size;
-    int prim_usable_size;
+    int usable_size;
     int *start_addr;//will be used to store the start addr of the allocated memory
 
 };
 // array creation and adding first five elements
 int createArray(struct myArray* marks, int t_size, int u_size)//recieves addr of created instance marks
 { marks->total_size = t_size;
-  marks->prim_usable_size = u_size;
+  marks->usable_size = u_size;
   marks->start_addr = (int*)malloc(t_size*sizeof(int)); //stores the allocated memory's start addr to start_addr 
   if (marks->start_addr == NULL)
   {
     return -1;
   }
-  for(int i = 0; i<marks->prim_usable_size;i++)
+  for(int i = 0; i<marks->usable_size;i++)
     {
     printf("Enter an element to insert:- ");
     scanf("%d", (&(marks->start_addr)[i]));//gets an element stores it in the i th position in marks 
@@ -29,10 +29,10 @@ int createArray(struct myArray* marks, int t_size, int u_size)//recieves addr of
 // this one is for regular adding
 int add_last(struct myArray* marks)
 {
-    if (marks->prim_usable_size<marks->total_size){
-              marks->prim_usable_size += 1;
+    if (marks->usable_size<marks->total_size){
+              marks->usable_size += 1;
               printf("Enter the element:- ");
-              scanf("%d", &marks->start_addr[marks->prim_usable_size-1]);
+              scanf("%d", &marks->start_addr[marks->usable_size-1]);
               return 0;
           }
           else
@@ -54,9 +54,9 @@ void get(struct myArray *marks)
 
 void display(struct myArray *marks)
 {
-    if (marks->prim_usable_size>0){
+    if (marks->usable_size>0){
     int i;
-    for (i = 0; i< marks->prim_usable_size-1;i++)
+    for (i = 0; i< marks->usable_size-1;i++)
     {
         printf("%d,",(marks->start_addr)[i]);//access marks ith element
     }
@@ -72,20 +72,20 @@ void display(struct myArray *marks)
 int ind_insert(struct myArray* marks)//inserts at specified index
 {
     int index;
-    if (marks->prim_usable_size >= marks->total_size)
+    if (marks->usable_size >= marks->total_size || index>marks->usable_size-1)
     {
         return -1;
     }
     printf("\nAt which index do you want to insert:- ");
     scanf("%d",&index);
-    for (int i = marks->prim_usable_size-1; i>=index; i-- )
+    for (int i = marks->usable_size-1; i>=index; i-- )
     {
         marks->start_addr[i+1] = marks->start_addr[i];
 
     }
      printf("Enter the term you want to insert :- ");
      scanf("%d",&marks->start_addr[index]);
-     marks->prim_usable_size++;
+     marks->usable_size++;
      return 0;
 }
 
@@ -96,21 +96,21 @@ int ind_Delete(struct myArray* marks)
     int index;
     printf("Enter the index you want to delete:- ");
     scanf("%d",&index);
-    if(index<=marks->prim_usable_size-1&&index>=0)//so that user doesnt enter any out of limit number
+    if(index<=marks->usable_size-1&&index>=0)//so that user doesnt enter any out of limit number
     {
-        if(index == marks->prim_usable_size-1)
+        if(index == marks->usable_size-1)
         {
-            marks->prim_usable_size -= 1;
-            printf(" size now:- %d\n", marks->prim_usable_size);
+            marks->usable_size -= 1;
+            //printf(" size now:- %d\n", marks->usable_size);
         }
         else
         {
-            for (int i = index; i<marks->prim_usable_size; i++)
+            for (int i = index; i<marks->usable_size; i++)
             {
                 //printf("Works\n");
                 marks->start_addr[i] = marks->start_addr[i+1];
             } 
-            marks->prim_usable_size -= 1;
+            marks->usable_size -= 1;
             //printf(" size now:- %d\n", marks->prim_usable_size);
         }
         return 0;
