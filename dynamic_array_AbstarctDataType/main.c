@@ -49,7 +49,13 @@ void get(struct myArray *marks)
     int ind;
     printf("Enter the index of which you want to acccess the element:- ");
     scanf("%d",&ind);
+    if(ind<marks->usable_size && ind>=0)
+    {
     printf("%d\n",(marks->start_addr)[ind]);
+    }
+    else{
+        printf("The index you entered has not been filled yet\n");
+    }
 }
 
 void display(struct myArray *marks)
@@ -121,13 +127,34 @@ int ind_Delete(struct myArray* marks)
     }
 }
 
+//linear search
+
+void linear_search(struct myArray* marks )
+{
+    int i, element;
+    printf("Enter the element to search:- ");
+    scanf("%d",&element);
+   for(i = 0; i<marks->usable_size; i++)
+   {
+     if (marks->start_addr[i]==element)
+     {
+        printf("Element found at index: %d and position: %d\n", i, i+1);
+        break;
+     }
+   }
+   if(i == marks->usable_size)
+   {
+    printf("Element not found in the array\n");
+   }   
+}
+
 int main()
 {
     struct myArray marks;//creates a structure named marks
     int choice, on = 1;
     createArray(&marks, 100, 5);//sends marks addr,max size and used size
     while(on){
-        printf("Enter the choice :- 1.add,2.display,3.get,4.insert at index, 5.delete, anyother.quit:- ");
+        printf("Enter the choice :- 1.add,2.display,3.get,4.insert at index, 5.delete,6.linear search, anyother.quit:- ");
         scanf("%d",&choice);
     switch(choice) {
     case 1: add_last(&marks);//&- passes addr *- deferences addr(reads it)
@@ -139,7 +166,9 @@ int main()
     case 4: ind_insert(&marks);
             break;
     case 5: ind_Delete(&marks);
-            break;        
+            break; 
+    case 6: linear_search(&marks);      
+            break;         
     default: 
              printf("Exiting\n");
              free(marks.start_addr);
