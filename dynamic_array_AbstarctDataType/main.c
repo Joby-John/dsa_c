@@ -148,10 +148,33 @@ void linear_search(struct myArray* marks )
    }   
 }
 
+int binary_search(struct myArray* marks)
+{
+    int mid, low = 0, high = marks->usable_size-1,size, element;
+    printf("Enter element to search:- ");
+    scanf("%d",&element);
+    //keep searching till low<=high 
+    while (low <= high){
+    mid = (low + high)/2;
+    if(marks->start_addr[mid]==element)
+    {
+        return mid;
+    }
+    else if(marks->start_addr[mid]<element)
+    {
+        low = mid+1;// bc mid doesnt consist the element
+    }
+    else{
+        high = mid-1; //bc mid doesnt have the element
+    }
+    }
+    return -1;
+}
+
 int main()
 {
     struct myArray marks;//creates a structure named marks
-    int choice, on = 1;
+    int choice, on = 1, found_ind;
     createArray(&marks, 100, 5);//sends marks addr,max size and used size
     while(on){
         printf("Enter the choice :- 1.add,2.display,3.get,4.insert at index, 5.delete,6.linear search, anyother.quit:- ");
@@ -168,7 +191,15 @@ int main()
     case 5: ind_Delete(&marks);
             break; 
     case 6: linear_search(&marks);      
-            break;         
+            break;
+    case 7: found_ind = binary_search(&marks);
+            if (found_ind!=-1){
+            printf("Element found at %d \n", found_ind);
+            }
+            else{
+                printf("Element not found\n")
+            }
+            break;                 
     default: 
              printf("Exiting\n");
              free(marks.start_addr);
