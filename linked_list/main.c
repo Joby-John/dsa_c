@@ -10,29 +10,76 @@ struct Node
 struct Node* head = NULL;
 struct Node* temp = NULL;
 
-void creation(){
-    struct Node* addr;
+void insertion(){
+    int choice;
+    struct Node* new;
     int data;
     printf("Enter the value to insert in node:- ");
     scanf("%d",&data);
-    addr = (struct Node*)malloc(sizeof(struct Node));
+    new = (struct Node*)malloc(sizeof(struct Node));
     if (head == NULL)
     {
-        head = addr;
+        head = new;
         head->value = data;
         head->next = NULL;
     }
     else
     {
-        printf("Working");
+        printf("enter 1- begining 2- in between 3-at end 4- after a node:- ");
+        scanf("%d",&choice);
         temp = head;
-        while(temp->next!= NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = addr;
-        addr->value = data; 
-        addr->next = NULL;
+        switch(choice){
+            case 1:
+            head = new;
+            new->next = temp;
+            new->value = data;
+            printf("Insertion success\n");  
+
+            break;
+
+            case 2:
+            int after, found = 1;
+            temp = head;
+            printf("After which value you want to insert :- ");
+            scanf("%d", &after);
+            while(temp!=NULL && temp->value!=after)
+            {
+                //printf("Working\n");
+                temp = temp->next;
+            }
+            if(temp!=NULL){
+            //printf("Working here\n");
+            new->value = data;
+            new->next = temp->next;
+            temp->next = new;
+            }
+            else
+            {
+                printf("There is no such element\n");
+            }
+
+            break;
+
+            case 3:
+            while(temp->next!= NULL)
+            {
+                temp = temp->next;
+            }
+            temp->next = new;
+            new->value = data; 
+            new->next = NULL;
+            printf("Insertion success!\n");
+
+            break;
+
+            case 4: 
+            printf("Coming soon\n");
+            //enter the adress of the node to which you want to attach
+            //new.next = addr.next
+            //addr.next = new
+
+            break;
+    }
     }
 }
 void display()
@@ -73,7 +120,7 @@ void main()
     scanf("%d",&choice);
     switch(choice)
     {
-        case 1: creation();
+        case 1: insertion();
                  break;
         case 2: display();
                 break;
