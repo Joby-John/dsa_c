@@ -73,17 +73,32 @@ void insertion(){
             break;
 
             case 4: 
-            printf("Coming soon\n");
-            //enter the adress of the node to which you want to attach
-            //new.next = addr.next
-            //addr.next = new
+            struct Node* addr;
+           printf("Here is the address of all the nodes yet created:- ");
+           while(temp!=NULL)
+           {
+            printf("%p,", temp);//pointer should be displayed as address and place holder %p should be used
+            temp = temp->next;
+           }
+           temp = head;
+           printf("Now enter the correct adress of the of the node after which you want to insert:- ");
+           scanf("%p",&addr);//like wise when dealing with address %p should be used not %d 
+           new->next = addr->next;
+           new->value = data;
+           addr->next = new;
+           printf("Insertion success\n");
 
             break;
+
+            default:
+                    printf("Invalid entry\n");
+                    break;
     }
     }
 }
 void display()
 {
+    if(head!=NULL){
     temp = head;
     while(temp->next!= NULL)
     {
@@ -91,7 +106,138 @@ void display()
         temp = temp->next;
     }
     printf("%d\n",temp->value);
+    }
+    else{
+        printf("The list is empty \n");
+    }
 
+}
+
+void delete()
+{
+    temp = head;
+    struct Node* prev = NULL;
+    if(head == NULL)
+    {
+        printf("The list is empty add some elemnets first\n");
+    }
+    else{
+        int choice, del_pos ,counter = 1;
+        printf("choose an option 1- first node, 2-node after, 3-last node, 4- given value:-");
+        scanf("%d",&choice);
+        
+        switch(choice)
+        {
+            case 1:
+                   temp = head;
+                   head = head->next;
+                   free(temp);
+                   temp = NULL;
+                   printf("Deletion complete\n");
+                   break;
+            case 2:
+                   printf("After which node you want to delete enter 1,2..:-");
+                   scanf("%d", &del_pos);
+                   while(counter!=del_pos)
+                   {
+                    if(temp == NULL)
+                    {
+                        printf("Entered index is unreachable\n");
+                        break;
+                    }
+                    else{
+                        prev = temp;
+                        temp = temp->next;
+                        counter += 1;
+
+                    }
+                   }
+                   if(temp == head)
+                   {
+                    if(temp->next == NULL)
+                    {
+                        free(temp);
+                        temp = NULL;
+                    }
+                    else{
+                    temp = head;
+                    head = head->next;
+                    free(temp);
+                    }
+                   }
+                   else{
+                    prev->next = temp->next;
+                    free(temp);
+                    temp = NULL;
+                   }
+                   printf("Deletion success\n");
+                   
+            break;
+            case 3:
+                if (head->next == NULL)
+                {
+                    free(head);
+                    head = NULL;
+                }
+                else{
+                while(temp->next!=NULL)
+                {
+                    prev = temp;
+                    temp = temp->next;
+                }
+                prev->next = NULL;
+                free(temp);
+                temp = NULL;
+                }
+                printf("Deletion success\n");
+
+            break;
+            case 4:
+                  int found = 1;
+                  printf("Enter the value that is to be deleted from the list:- ");
+                  scanf("%d",&del_pos);
+                  while(temp->value != del_pos)
+                  {
+                    prev = temp;
+                    temp = temp->next;
+                    if (temp == NULL)
+                    {
+                        found = 0;
+                        break;
+                    }
+                  }
+                  if (found){
+                  if(temp == head)
+                   {
+                    if(temp->next == NULL)
+                    {
+                        free(temp);
+                        temp = NULL;
+                        head = NULL;
+                    }
+                    else{
+                    temp = head;
+                    head = head->next;
+                    free(temp);
+                    }
+                   }
+                   else{
+                    prev->next = temp->next;
+                    free(temp);
+                   }
+                   printf("Deletion success\n");
+                  }
+                  else
+                  {
+                    printf("No such element\n");
+                  }
+            break;
+            default: printf("Looks like you entered wrong key\n");
+                     break;       
+
+
+        }
+    }
 }
 
 void clear_all()
@@ -124,6 +270,8 @@ void main()
                  break;
         case 2: display();
                 break;
+        case 3: delete();
+                 break;        
         default: clear_all();
                  on = 0;
                  break;                 
