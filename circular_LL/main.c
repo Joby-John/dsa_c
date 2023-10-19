@@ -30,13 +30,16 @@ void insertion(){
         temp = head;
         switch(choice){
             case 1:
-            printf("previous head - %d\n",head->value);
-            head = new;
+            temp = head;
             new->next = temp;
-            new->value = data; 
-            printf("current head- %d and next node %d\n", head->value, head->next->value);
-            printf("Insertion success\n");
-            temp = head = new;
+            new->value = data;
+            while(temp->next!=head)
+            {
+                temp = temp->next; 
+            }
+            temp->next = new;
+            head = new;
+           
 
             break;
 
@@ -123,13 +126,14 @@ void insertion(){
 void display()
 {
     if(head!=NULL){
-    temp = head;
-    do
+    temp = head->next;
+    //printf("head in display:- %d", head);
+    printf("%d,",head->value);
+    while(temp!= head)
     {
         printf("%d,",temp->value);
         temp = temp->next;
-    }while(temp->next!= head);
-    printf("%d\n",temp->value);
+    }
     }
     else{
         printf("The list is empty \n");
@@ -270,14 +274,16 @@ void clear_all()
     struct Node* next;
     temp = head;
     if (head!=NULL)
-    {
-    do
+    {  
+    while(temp->next!=head)
     {
         next = temp->next;
         printf("Deleting:- %d\n", temp->value);
         free(temp);//first node to be freed is head
         temp = next;
-    }while(temp!= head);
+    }
+
+        printf("Deleting:- %d\n", temp->value);
     }
     temp = NULL;
     free(temp);
