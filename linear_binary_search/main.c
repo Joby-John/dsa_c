@@ -39,10 +39,10 @@ int binarySearch(int arr[], int size, int element)
 int main()
 {
     int arr[] = {12,23,24,25,31,28,30};
-    int size = 7, lin, bin;
+    int size = sizeof(arr)/sizeof(int), lin, bin;
     lin = linearSearch(arr, size, 30);
     printf("linear search found at : %d \n", lin+1);
     bin = binarySearch(arr, size, 30);
-    printf("Binary search found at :%d", bin+1);
+    printf("Binary search found at : %d", bin+1);
     return 0;
 }
