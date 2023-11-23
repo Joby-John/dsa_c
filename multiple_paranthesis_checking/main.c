@@ -50,7 +50,7 @@ int pop(char brack)
         }
         return(Stack.top);
     }
-    else if(Stack.top == 0)
+    else if(Stack.top == 0)// if stack top is 0 and encounters a closing bracket
     {
         return (Stack.top-=1);
     }
